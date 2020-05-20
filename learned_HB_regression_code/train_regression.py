@@ -36,7 +36,6 @@ def make_parser_reg():
     aa("--random", default=False, action='store_true',
        help="don't learn S! Just compute error on random S")
 
-
     aa("--size", type=int, default=2900, help="dataset size")
     #aa("--lr", type=float, default=1e-1, help="learning rate for gradient descent")
     aa("--lr", type=float, default=5e-3, help="learning rate for gradient descent")
@@ -54,7 +53,6 @@ def make_parser_reg():
        help="number of times to rerun the experiment (for avg'ing results)")
     #aa("--bs", type=int, default=10, help="batch size")
     aa("--bs", type=int, default=32, help="batch size")
-
 
     aa("--initalg", type=str, default="random",
        help="random|kmeans|lev|gs|lev_cluster|load")
@@ -178,7 +176,7 @@ if __name__ == '__main__':
             if args.S_init_method == "pm1":
                 #sketch_value = ((torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).to(device)
                 sketch_value = (
-                        (torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).cpu()
+                    (torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).cpu()
             elif args.S_init_method == "gaussian":
                 #sketch_value = torch.from_numpy(np.random.normal(size=[args.k_sparse, n]).astype("float32")).to(device)
                 sketch_value = torch.from_numpy(np.random.normal(
@@ -186,7 +184,7 @@ if __name__ == '__main__':
             elif args.S_init_method == "gaussian_pm1":
                 #sketch_value = ((torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).to(device)
                 sketch_value = (
-                        (torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).cpu()
+                    (torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).cpu()
                 #sketch_value = sketch_value + torch.from_numpy(np.random.normal(size=[args.k_sparse, n]).astype("float32")).to(device)
                 sketch_value = sketch_value + torch.from_numpy(
                     np.random.normal(size=[args.k_sparse, n]).astype("float32")).cpu()
@@ -269,7 +267,7 @@ if __name__ == '__main__':
             print("making D matrix")
             D = torch.zeros(
                 h * S.shape[0], h * S.shape[0]).cpu()
-                #h*S.shape[0], h*S.shape[0]).to(device)
+            # h*S.shape[0], h*S.shape[0]).to(device)
             k = 0
             for i in range(D.shape[0]):
                 for j in range(D.shape[1]):
@@ -329,8 +327,6 @@ if __name__ == '__main__':
             S_mul = torch.matmul(D, S_result)
             SA = torch.matmul(S_mul, AM)
             SB = torch.matmul(S_mul, BM)
-            SA = torch.matmul(S, AM)
-            SB = torch.matmul(S, BM)
             X = huber_regression(SA, SB)
             ans = AM.matmul(X.float())
             crit = torch.nn.SmoothL1Loss()
