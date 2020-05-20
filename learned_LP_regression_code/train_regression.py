@@ -18,7 +18,7 @@ import numpy as np
 
 from scipy.stats import levy_stable
 
-# 试探
+
 def make_parser_reg():
     parser = argparse.ArgumentParser()
 
