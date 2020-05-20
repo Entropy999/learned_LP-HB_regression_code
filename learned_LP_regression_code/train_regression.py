@@ -130,20 +130,8 @@ if __name__ == '__main__':
     print("Dim= ", n, d_a, d_b)
     print("N train=", N_train, "N test=", N_test)
     p = 1.5
-    best_file = os.path.join(best_fl_save_dir, "N=" + str(args.size) + '_best')
-    print("computing best lp regression loss")
-    getbest_lp_regression(A_train, B_train, A_test, B_test, best_file, p)
-    best_train, best_test = torch.load(best_file)
-    print("Best: train:%f , test:%f" % (best_train, best_test))
-
-    start = time.time()
-    print_freq = 50  # TODO
 
     # save args
-    args_save_fpath = os.path.join(save_dir, "args_it_0.pkl")
-    f = open(args_save_fpath, "wb")
-    pickle.dump(vars(args), f)
-    f.close()
 
     avg_over_exps = 0
     for exp_num in range(args.num_exp):
@@ -157,8 +145,6 @@ if __name__ == '__main__':
 
         test_errs = []
         train_errs = []
-        fp_times = []
-        bp_times = []
         #device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         #device = torch.device("cpu")
         # Initialize sparsity pattern
@@ -191,116 +177,24 @@ if __name__ == '__main__':
                     (torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).cpu()
                 sketch_value = sketch_value + torch.from_numpy(
                     np.random.normal(size=[args.k_sparse, n]).astype("float32")).cpu()
-        ###########TO BE CHANGED###########
-        greedy_fl_save_dir = os.path.join(save_dir_prefix, "greedy_matrix")
-        greedy_file = os.path.join(
-            greedy_fl_save_dir, "N=" + str(args.size) + '_greedy')
-        if not os.path.exists(greedy_fl_save_dir):
-            os.makedirs(greedy_fl_save_dir)
-        best_temp = 0
-        if (not os.path.isfile(greedy_file)):
-            S_add = torch.zeros(m, n).cpu()
-            S = torch.zeros(m, n).cpu()
-            S[sketch_vector.type(torch.LongTensor).reshape(-1), torch.arange(n).repeat(
-                args.k_sparse)] = sketch_value.reshape(-1).cpu()
-            S_original = S_add + S
-            del S_add
-            print("now calculating the greedy init S")
-            best_temp = evaluate_to_rule_them_all_lp_regression(
-                A_train[0:1], B_train[0:1], S, p)
-            for i in range(S.shape[1]):
-                random_vector = torch.tensor(
-                    random.sample(range(0, m), args.greedy_number))
-                random_value = torch.from_numpy(np.random.random_sample(
-                    args.greedy_number,).astype("float32")*4-2)
-                loc = sketch_vector[0][i]
-                val = sketch_value[0][i]
-                for j in range(random_vector.shape[0]):
-                    for k in range(random_value.shape[0]):
-                        S_temp = S+S_add
-                        for l in range(m):
-                            S_temp[l][i] = 0
-                        S_temp[random_vector[j]][i] = random_value[k]
-                        now_evaluate = evaluate_to_rule_them_all_lp_regression(
-                            A_train[0:1], B_train[0:1], S_temp, p)
-                        if now_evaluate < best_temp:
-                            loc = random_vector[j]
-                            val = S_temp[loc][i]
-                            S[loc][i] = val
-                            best_temp = now_evaluate
-                sketch_value[0][i] = val
-                sketch_vector[0][i] = loc
-                if i % 50 == 0:
-                    print("initing greedily S ", i/n*100, "%")
-                random_train = evaluate_to_rule_them_all_lp_regression(
-                    A_train[0:1], B_train[0:1], S_original, p)
-            torch.save([S_original, random_train, best_temp,
-                        sketch_value, sketch_vector], greedy_file)
-        S_original, random_train, best_temp, sketch_value, sketch_vector = torch.load(
-            greedy_file)
-        print("before greedy initing,best_train:",
-              random_train)
-        print("After greedy initing, best_train:", best_temp)
-        sketch_value.requires_grad = True
-        ###########TO BE CHANGED###########
-        for bigstep in tqdm(range(args.iter)):
-            if (bigstep % 1000 == 0) and it_lr > 1:
-                it_lr = it_lr * 0.3
-            if bigstep > 200:
-                it_print_freq = 200
 
-            fp_start_time = time.time()
-            # to randomly choose for gd
-            batch_rand_ind = np.random.randint(0, high=N_train, size=args.bs)
+############################evaluate random_sketch##############################
 
-            AM = A_train[batch_rand_ind].cpu()
-            BM = B_train[batch_rand_ind].cpu()
+        batch_rand_ind = np.random.randint(0, high=N_train, size=args.bs)
+        AM = A_train[batch_rand_ind].cpu()
+        BM = B_train[batch_rand_ind].cpu()
+        S = torch.zeros(m, n).cpu()
 
-            S = torch.zeros(m, n).cpu()
-            S[sketch_vector.type(torch.LongTensor).reshape(-1), torch.arange(n).repeat(
-                args.k_sparse)] = sketch_value.reshape(-1)
+        S[sketch_vector.type(torch.LongTensor).reshape(-1), torch.arange(n).repeat(
+            args.k_sparse)] = sketch_value.reshape(-1).cpu()
 
-            if bigstep % 10 == 0 or bigstep == (args.iter - 1):
-                train_err, test_err = save_iteration_regression(
-                    S, A_train, B_train, A_test, B_test, it_save_dir, bigstep, p)
-                train_errs.append(train_err)
-                test_errs.append(test_err)
-                if bigstep == (args.iter - 1):
-                    # num_exp =how many times run
-                    avg_over_exps += (test_err/args.num_exp)
-                if args.random:
-                    # don't train! after evaluating, exit trial
-                    break
-            SA = torch.matmul(S, AM)
-            SB = torch.matmul(S, BM)
-            X = lp_norm_regression(p, SA, SB)
-            ans = AM.matmul(X.float())
-            loss = torch.mean(torch.norm(abs(ans - BM), dim=(1, 2), p=p))
-            fp_times.append(time.time() - fp_start_time)
-            bp_start_time = time.time()
-            loss.backward()
-            bp_times.append(time.time() - bp_start_time)
-            # TODO: Maybe don't have to divide by args.bs: is this similar to lev_score_experiments bug?
-            # However, if you change it, then you need to compensate in lr... all old exp will be invalidated
-            with torch.no_grad():
-                if args.initalg == "load":
-                    sketch_value[active_ind] -= (it_lr / args.bs) * \
-                        sketch_value.grad[active_ind]
-                    sketch_value.grad.zero_()
-                else:
-                    sketch_value -= (it_lr / args.bs) * sketch_value.grad
-                    sketch_value.grad.zero_()
+        train_err, test_err = save_iteration_regression(
+            S, A_train, B_train, A_test, B_test, it_save_dir, bigstep, p)
 
-            # del SA, SB, U, Sig, V, X, ans, loss
-            del SA, SB, X, ans, loss
-            torch.cuda.empty_cache()
+############################evaluate random_sketch##############################
 
         np.save(os.path.join(it_save_dir, "train_errs.npy"),
                 train_errs, allow_pickle=True)
         np.save(os.path.join(it_save_dir, "test_errs.npy"),
                 test_errs, allow_pickle=True)
-        np.save(os.path.join(it_save_dir, "fp_times.npy"),
-                fp_times, allow_pickle=True)
-        np.save(os.path.join(it_save_dir, "bp_times.npy"),
-                bp_times, allow_pickle=True)
     print(avg_over_exps)

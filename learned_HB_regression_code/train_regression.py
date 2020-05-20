@@ -36,7 +36,6 @@ def make_parser_reg():
     aa("--random", default=False, action='store_true',
        help="don't learn S! Just compute error on random S")
 
-
     aa("--size", type=int, default=2900, help="dataset size")
     #aa("--lr", type=float, default=1e-1, help="learning rate for gradient descent")
     aa("--lr", type=float, default=5e-3, help="learning rate for gradient descent")
@@ -54,7 +53,6 @@ def make_parser_reg():
        help="number of times to rerun the experiment (for avg'ing results)")
     #aa("--bs", type=int, default=10, help="batch size")
     aa("--bs", type=int, default=32, help="batch size")
-
 
     aa("--initalg", type=str, default="random",
        help="random|kmeans|lev|gs|lev_cluster|load")
@@ -178,7 +176,7 @@ if __name__ == '__main__':
             if args.S_init_method == "pm1":
                 #sketch_value = ((torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).to(device)
                 sketch_value = (
-                        (torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).cpu()
+                    (torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).cpu()
             elif args.S_init_method == "gaussian":
                 #sketch_value = torch.from_numpy(np.random.normal(size=[args.k_sparse, n]).astype("float32")).to(device)
                 sketch_value = torch.from_numpy(np.random.normal(
@@ -186,68 +184,11 @@ if __name__ == '__main__':
             elif args.S_init_method == "gaussian_pm1":
                 #sketch_value = ((torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).to(device)
                 sketch_value = (
-                        (torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).cpu()
+                    (torch.randint(2, [args.k_sparse, n]).float() - 0.5) * 2).cpu()
                 #sketch_value = sketch_value + torch.from_numpy(np.random.normal(size=[args.k_sparse, n]).astype("float32")).to(device)
                 sketch_value = sketch_value + torch.from_numpy(
                     np.random.normal(size=[args.k_sparse, n]).astype("float32")).cpu()
 
-##############################Greedy Init#####################################
-        greedy_fl_save_dir = os.path.join(save_dir_prefix, "greedy_matrix")
-        greedy_file = os.path.join(
-            greedy_fl_save_dir, "N=" + str(args.size) + '_greedy')
-        if not os.path.exists(greedy_fl_save_dir):
-            os.makedirs(greedy_fl_save_dir)
-        best_temp = 0
-        if (not os.path.isfile(greedy_file)):
-            #S_add = torch.zeros(m, n).to(device)
-            S_add = torch.zeros(m, n).cpu()
-
-            #S = torch.zeros(m, n).to(device)
-            S = torch.zeros(m, n).cpu()
-
-            S[sketch_vector.type(torch.LongTensor).reshape(-1), torch.arange(n).repeat(
-                args.k_sparse)] = sketch_value.reshape(-1)
-            S_original = S_add + S
-            print("now calculating the greedy init S")
-            best_temp = evaluate_to_rule_them_all_huber_regression(
-                A_train[0:1], B_train[0:1], S)
-            for i in range(S.shape[1]):
-                random_vector = torch.tensor(
-                    random.sample(range(0, m), args.greedy_number))
-                random_value = torch.from_numpy(np.random.random_sample(
-                    args.greedy_number,).astype("float32")*4-2)
-                loc = sketch_vector[0][i]
-                val = sketch_value[0][i]
-                for j in range(random_vector.shape[0]):
-                    for k in range(random_value.shape[0]):
-                        S_temp = S+S_add
-                        for l in range(m):
-                            S_temp[l][i] = 0
-                        S_temp[random_vector[j]][i] = random_value[k]
-                        now_evaluate = evaluate_to_rule_them_all_huber_regression(
-                            A_train[0:1], B_train[0:1], S_temp)
-                        if now_evaluate < best_temp:
-                            loc = random_vector[j]
-                            val = S_temp[loc][i]
-                            S[loc][i] = val
-                            best_temp = now_evaluate
-                            print()
-                sketch_value[0][i] = val
-                sketch_vector[0][i] = loc
-                if i % 50 == 0:
-                    print("initing greedily S ", i/n*100, "%")
-                random_train = evaluate_to_rule_them_all_huber_regression(
-                    A_train[0:1], B_train[0:1], S_original)
-            torch.save([S_original, random_train, best_temp,
-                        sketch_value, sketch_vector], greedy_file)
-        S_original, random_train, best_temp, sketch_value, sketch_vector = torch.load(
-            greedy_file)
-        print("before greedy initing,best_train:",
-              random_train)
-        print("After greedy initing, best_train:", best_temp)
-##############################Greedy Init#####################################
-
-        sketch_value.requires_grad = True
 
 #######################zero_vector for Matrix stacking S#######################
         h = math.floor(math.log(n, 2))
@@ -259,6 +200,7 @@ if __name__ == '__main__':
 
 #######################zero_vector for Matrix stacking S########################
 
+
 #################################D_Matrix####################################
         DMatrix_fl_save_dir = os.path.join(save_dir_prefix, "D_matrix")
         DMatrix_file = os.path.join(
@@ -269,7 +211,7 @@ if __name__ == '__main__':
             print("making D matrix")
             D = torch.zeros(
                 h * S.shape[0], h * S.shape[0]).cpu()
-                #h*S.shape[0], h*S.shape[0]).to(device)
+            # h*S.shape[0], h*S.shape[0]).to(device)
             k = 0
             for i in range(D.shape[0]):
                 for j in range(D.shape[1]):
@@ -284,81 +226,34 @@ if __name__ == '__main__':
 
 #################################D_Matrix####################################
 
-        for bigstep in tqdm(range(args.iter)):
-            if (bigstep % 1000 == 0) and it_lr > 1:
-                it_lr = it_lr * 0.3
-            if bigstep > 200:
-                it_print_freq = 200
+############################evaluate random_sketch##############################
 
-            fp_start_time = time.time()
-            # to randomly choose for gd
-            batch_rand_ind = np.random.randint(0, high=N_train, size=args.bs)
-            #AM = A_train[batch_rand_ind].to(device)
-            AM = A_train[batch_rand_ind].cpu()
+        batch_rand_ind = np.random.randint(0, high=N_train, size=args.bs)
+        AM = A_train[batch_rand_ind].cpu()
+        BM = B_train[batch_rand_ind].cpu()
 
-            #BM = B_train[batch_rand_ind].to(device)
-            BM = B_train[batch_rand_ind].cpu()
+        S = torch.zeros(m, n).cpu()
+        S[sketch_vector.type(torch.LongTensor).reshape(-1), torch.arange(n).repeat(
+            args.k_sparse)] = sketch_value.reshape(-1).cpu()
+        S_add = torch.zeros(m, n).cpu()
 
-            #S = torch.zeros(m, n).to(device)
-            S = torch.zeros(m, n).cpu()
+        S_result = S+S_add
+        for i in range(1, h):
+            S_temp = S+S_add
+        for j in range(len(list)):
+        for k in range(m):
+            S_temp[k][list[j]] = 0
+        S_result = torch.cat([S_result, S_temp], dim=0)
+        S_mul = torch.matmul(D, S_result)
 
-            #S[sketch_vector.type(torch.LongTensor).reshape(-1), torch.arange(n).repeat(args.k_sparse)] = sketch_value.reshape(-1)
-            S[sketch_vector.type(torch.LongTensor).reshape(-1), torch.arange(n).repeat(
-                args.k_sparse)] = sketch_value.reshape(-1).cpu()
-            if bigstep % it_print_freq == 0 or bigstep == (args.iter - 1):
-                train_err, test_err = save_iteration_regression(
-                    S, A_train, B_train, A_test, B_test, it_save_dir, bigstep, p)
-                train_errs.append(train_err)
-                test_errs.append(test_err)
-                if bigstep == (args.iter - 1):
-                    avg_over_exps += (test_err/args.num_exp)
-                if args.random:
-                    # don't train! after evaluating, exit trial
-                    break
-            #S_add = torch.zeros(m, n).to(device)
-            S_add = torch.zeros(m, n).cpu()
+        train_err, test_err = save_iteration_regression(
+            S_mul, A_train, B_train, A_test, B_test, it_save_dir, bigstep, p)
 
-            S_result = S+S_add
-            for i in range(1, h):
-                #S_add = torch.zeros(m, n)
-                S_temp = S+S_add
-                for j in range(len(list)):
-                    for k in range(m):
-                        S_temp[k][list[j]] = 0
-                S_result = torch.cat([S_result, S_temp], dim=0)
-            S_mul = torch.matmul(D, S_result)
-            SA = torch.matmul(S_mul, AM)
-            SB = torch.matmul(S_mul, BM)
-            SA = torch.matmul(S, AM)
-            SB = torch.matmul(S, BM)
-            X = huber_regression(SA, SB)
-            ans = AM.matmul(X.float())
-            crit = torch.nn.SmoothL1Loss()
-            loss = crit(ans, BM)
-            # print("loss this time:", loss.item())
-            fp_times.append(time.time() - fp_start_time)
-            bp_start_time = time.time()
-            loss.backward()
-            bp_times.append(time.time() - bp_start_time)
-            # TODO: Maybe don't have to divide by args.bs: is this similar to lev_score_experiments bug?
-            # However, if you change it, then you need to compensate in lr... all old exp will be invalidated
-            with torch.no_grad():
-                if args.initalg == "load":
-                    sketch_value[active_ind] -= (it_lr / args.bs) * \
-                        sketch_value.grad[active_ind]
-                    sketch_value.grad.zero_()
-                else:
-                    sketch_value -= (it_lr / args.bs) * sketch_value.grad
-                    sketch_value.grad.zero_()
-            # del SA, SB, U, Sig, V, X, ans, loss
-            del SA, SB, X, ans, loss
-            torch.cuda.empty_cache()
+############################evaluate random_sketch##############################
+
         np.save(os.path.join(it_save_dir, "train_errs.npy"),
                 train_errs, allow_pickle=True)
         np.save(os.path.join(it_save_dir, "test_errs.npy"),
                 test_errs, allow_pickle=True)
-        np.save(os.path.join(it_save_dir, "fp_times.npy"),
-                fp_times, allow_pickle=True)
-        np.save(os.path.join(it_save_dir, "bp_times.npy"),
-                bp_times, allow_pickle=True)
+
     print(avg_over_exps)
