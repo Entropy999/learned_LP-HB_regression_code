@@ -1,24 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b24f8ec7-50fa-4cf3-9624-78cf069c11b9" name="Default Changelist" comment="" />
+    <list default="true" id="b24f8ec7-50fa-4cf3-9624-78cf069c11b9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.idea/deployment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.idea/learned_regression_code.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.idea/libraries/R_User_Library.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.idea/remote-mappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.ipynb_checkpoints/Huber_regression-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.ipynb_checkpoints/未命名-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.ipynb_checkpoints/未命名1-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.ipynb_checkpoints/未命名2-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/.ipynb_checkpoints/未命名3-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/data/electric.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/data/gas.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/data/ghg.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/evaluate.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/global_variables.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/misc_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/sample_regression_sh/debug_electric.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/sample_regression_sh/first_reg_debug.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../learned_HB_regression_code2/train_regression.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_regression.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_regression.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1aQlIlYzUk2fq6y4qzYD1KYkaG4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunManager">
     <configuration name="train_regression" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -50,7 +81,7 @@
     </recent_temporary>
   </component>
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>$USER_HOME$/.subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -68,6 +99,7 @@
       <workItem from="1587281622706" duration="885000" />
       <workItem from="1587289758577" duration="5012000" />
       <workItem from="1589933570778" duration="842000" />
+      <workItem from="1589942638406" duration="1151000" />
     </task>
     <servers />
   </component>
@@ -75,6 +107,14 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="498" y="284" key="Github.ShareDialog" timestamp="1589943236403">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="498" y="284" key="Github.ShareDialog/0.0.1366.768@0.0.1366.768" timestamp="1589943236403" />
+    <state x="476" y="97" key="Github.UntrackedFilesDialog" timestamp="1589943328589">
+      <screen x="0" y="23" width="1366" height="745" />
+    </state>
+    <state x="476" y="97" key="Github.UntrackedFilesDialog/0.23.1366.745@0.23.1366.745" timestamp="1589943328589" />
     <state width="1324" height="309" key="GridCell.Tab.0.bottom" timestamp="1587324376651">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -95,10 +135,10 @@
     </state>
     <state width="1324" height="309" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1587324376650" />
     <state width="1324" height="309" key="GridCell.Tab.0.right/0.23.1366.745@0.23.1366.745" timestamp="1587291758137" />
-    <state x="244" y="23" key="SettingsEditor" timestamp="1586915856596">
+    <state x="244" y="23" key="SettingsEditor" timestamp="1589943145214">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="244" y="23" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1586915856596" />
+    <state x="244" y="23" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1589943145214" />
     <state x="445" y="112" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration" timestamp="1586675738077">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -113,6 +153,6 @@
     <state x="348" y="92" width="670" height="676" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1587271344979" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/learned_LP_regression_code$train_regression.coverage" NAME="train_regression Coverage Results" MODIFIED="1587293663464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/learned_LP_regression_code$train_regression.coverage" NAME="train_regression Coverage Results" MODIFIED="1589942937159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
