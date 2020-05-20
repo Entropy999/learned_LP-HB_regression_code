@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b24f8ec7-50fa-4cf3-9624-78cf069c11b9" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1aQlIlYzUk2fq6y4qzYD1KYkaG4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="train_regression" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="learned_regression_code" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_regression.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.train_regression" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b24f8ec7-50fa-4cf3-9624-78cf069c11b9" name="Default Changelist" comment="" />
+      <created>1583123214176</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583123214176</updated>
+      <workItem from="1583123217214" duration="265000" />
+      <workItem from="1583235561829" duration="18000" />
+      <workItem from="1586675628338" duration="26001000" />
+      <workItem from="1586915387749" duration="158000" />
+      <workItem from="1586915665558" duration="3714000" />
+      <workItem from="1587119190238" duration="42805000" />
+      <workItem from="1587281622706" duration="885000" />
+      <workItem from="1587289758577" duration="5012000" />
+      <workItem from="1589933570778" duration="842000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1324" height="309" key="GridCell.Tab.0.bottom" timestamp="1587324376651">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1324" height="309" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1587324376651" />
+    <state width="1324" height="309" key="GridCell.Tab.0.bottom/0.23.1366.745@0.23.1366.745" timestamp="1587291758138" />
+    <state width="1324" height="309" key="GridCell.Tab.0.center" timestamp="1587324376648">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1324" height="309" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1587324376648" />
+    <state width="1324" height="309" key="GridCell.Tab.0.center/0.23.1366.745@0.23.1366.745" timestamp="1587291758136" />
+    <state width="1324" height="309" key="GridCell.Tab.0.left" timestamp="1587324376647">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1324" height="309" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1587324376647" />
+    <state width="1324" height="309" key="GridCell.Tab.0.left/0.23.1366.745@0.23.1366.745" timestamp="1587291758135" />
+    <state width="1324" height="309" key="GridCell.Tab.0.right" timestamp="1587324376650">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1324" height="309" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1587324376650" />
+    <state width="1324" height="309" key="GridCell.Tab.0.right/0.23.1366.745@0.23.1366.745" timestamp="1587291758137" />
+    <state x="244" y="23" key="SettingsEditor" timestamp="1586915856596">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="244" y="23" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1586915856596" />
+    <state x="445" y="112" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration" timestamp="1586675738077">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="445" y="112" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration/0.0.1366.768@0.0.1366.768" timestamp="1586675738077" />
+    <state x="590" y="121" key="ftp.server.browser" timestamp="1586675893872">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="590" y="121" key="ftp.server.browser/0.0.1366.768@0.0.1366.768" timestamp="1586675893872" />
+    <state x="348" y="92" width="670" height="676" key="search.everywhere.popup" timestamp="1587271344979">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="348" y="92" width="670" height="676" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1587271344979" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/learned_LP_regression_code$train_regression.coverage" NAME="train_regression Coverage Results" MODIFIED="1587293663464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
