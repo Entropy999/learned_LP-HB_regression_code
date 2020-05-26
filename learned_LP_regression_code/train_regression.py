@@ -179,10 +179,6 @@ if __name__ == '__main__':
                     np.random.normal(size=[args.k_sparse, n]).astype("float32")).cpu()
 
 ############################evaluate random_sketch##############################
-
-        batch_rand_ind = np.random.randint(0, high=N_train, size=args.bs)
-        AM = A_train[batch_rand_ind].cpu()
-        BM = B_train[batch_rand_ind].cpu()
         S = torch.zeros(m, n).cpu()
 
         S[sketch_vector.type(torch.LongTensor).reshape(-1), torch.arange(n).repeat(
