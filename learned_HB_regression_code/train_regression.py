@@ -207,8 +207,10 @@ if __name__ == '__main__':
                 args.k_sparse)] = sketch_value.reshape(-1)
             S_original = S_add + S
             print("now calculating the greedy init S")
+            # best_temp = evaluate_to_rule_them_all_huber_regression(
+            # A_train[0:1], B_train[0:1], S)
             best_temp = evaluate_to_rule_them_all_huber_regression(
-                A_train[0:1], B_train[0:1], S)
+                A_train, B_train, S)
             for i in range(S.shape[1]):
                 random_vector = torch.tensor(
                     random.sample(range(0, m), args.greedy_number))

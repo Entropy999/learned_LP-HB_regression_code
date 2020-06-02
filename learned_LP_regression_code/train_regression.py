@@ -207,7 +207,7 @@ if __name__ == '__main__':
             del S_add
             print("now calculating the greedy init S")
             best_temp = evaluate_to_rule_them_all_lp_regression(
-                A_train[0:1], B_train[0:1], S, p)
+                A_train, B_train, S, p)
             for i in range(S.shape[1]):
                 random_vector = torch.tensor(
                     random.sample(range(0, m), args.greedy_number))
