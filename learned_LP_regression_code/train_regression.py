@@ -245,7 +245,7 @@ if __name__ == '__main__':
         ###########TO BE CHANGED###########
         for bigstep in tqdm(range(args.iter)):
             if (bigstep % 1000 == 0) and it_lr > 1:
-                it_lr = it_lr * 0.3
+                it_lr = it_lr * 0.1
             if bigstep > 200:
                 it_print_freq = 200
 
