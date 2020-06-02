@@ -29,7 +29,7 @@ def evaluate_to_rule_them_all_lp_regression(A_set, B_set, S, p):
     n = A_set.size()[0]
     bs = 100
     loss = 0
-    median = 0
+    # median = 0
     for i in range(math.ceil(n / float(bs))):
         AM = A_set[i * bs:min(n, (i + 1) * bs)].cpu()
         BM = B_set[i * bs:min(n, (i + 1) * bs)].cpu()
@@ -37,10 +37,9 @@ def evaluate_to_rule_them_all_lp_regression(A_set, B_set, S, p):
         SB = torch.matmul(S.cpu(), BM)
         X = lp_norm_regression(p, SA, SB).cpu()
         ans = AM.matmul(X.float())
-        loss = torch.norm(abs(ans - BM), dim=(1, 2), p=p)
-        median += np.median(loss.detach().cpu().numpy())
-    median = median / math.ceil(n / float(bs))
-    return median
+        it_loss = torch.norm(abs(ans - BM), dim=(1, 2), p=p)//n
+        loss += it_loss.item()
+    return loss
 
 
 def bestPossible_lp_regression(A_set, B_set, p):
@@ -55,13 +54,13 @@ def bestPossible_lp_regression(A_set, B_set, p):
         BM = B_set[i * bs:min(n, (i + 1) * bs)].cpu()
         X = lp_norm_regression(p, AM, BM).cpu()
         ans = AM.matmul(X.float())
-        loss = torch.norm(abs(ans - BM), dim=(1, 2), p=p)
-        median += np.median(loss.detach().cpu().numpy())
-    median = median / math.ceil(n / float(bs))
+        it_loss = torch.norm(abs(ans - BM), dim=(1, 2), p=p)//n
+        loss += it_loss.item()
     print("======================LP regression===============")
-    print(median)
+    print(loss)
     print("======================LP regression===============")
-    return median
+    return loss
+
 
 def getbest_regression(A_train, B_train, A_test, B_test, best_file):
     best_train_err = bestPossible_regression(A_train, B_train)
