@@ -37,7 +37,7 @@ def evaluate_to_rule_them_all_lp_regression(A_set, B_set, S, p):
         SB = torch.matmul(S.cpu(), BM)
         X = lp_norm_regression(p, SA, SB).cpu()
         ans = AM.matmul(X.float())
-        it_loss = torch.norm(abs(ans - BM), dim=(1, 2), p=p)//n
+        it_loss = torch.sum(torch.norm(abs(ans - BM), dim=(1, 2), p=p))//n
         loss += it_loss.item()
     return loss
 
@@ -54,7 +54,7 @@ def bestPossible_lp_regression(A_set, B_set, p):
         BM = B_set[i * bs:min(n, (i + 1) * bs)].cpu()
         X = lp_norm_regression(p, AM, BM).cpu()
         ans = AM.matmul(X.float())
-        it_loss = torch.norm(abs(ans - BM), dim=(1, 2), p=p)//n
+        it_loss = torch.sum(torch.norm(abs(ans - BM), dim=(1, 2), p=p))//n
         loss += it_loss.item()
     print("======================LP regression===============")
     print(loss)
